@@ -1,0 +1,5 @@
+.vscode
+*.py
+*.txt
+a.out
+# algo_heights/
