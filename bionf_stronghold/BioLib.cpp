@@ -2,15 +2,15 @@
 #include <iostream>
 #include <algorithm>
 
-#include "dna_lib.h"
+#include "BioLib.h"
 
 using namespace std;
 
 // DNA - Counting DNA Nucleotides
-unordered_map<char, int> dna_lib::count_nuc_freq(const string &dna_in)
+unordered_map<char, int> DNA::count_nuc_freq()
 {
     unordered_map<char, int> m;
-    for (auto nuc : dna_in)
+    for (auto nuc : this->dna)
     {
         if (m.find(nuc) == m.end())
         {
@@ -26,18 +26,18 @@ unordered_map<char, int> dna_lib::count_nuc_freq(const string &dna_in)
 }
 
 // RNA - Transcribing DNA into RNA
-string dna_lib::transcribe_to_rna(const string &dna_in)
+string DNA::transcribe_to_rna_seq()
 {
     string rna = "";
-    for (auto nuc : dna_in)
+    for (auto nuc : this->dna)
     {
-        if (dna_in[nuc] == 'T')
+        if (this->dna[nuc] == 'T')
         {
             rna += 'U';
         }
         else
         {
-            rna += dna_in[nuc];
+            rna += nuc;
         }
     }
 
@@ -45,10 +45,10 @@ string dna_lib::transcribe_to_rna(const string &dna_in)
 }
 
 // REVC - Complementing a Strand of DNA
-string dna_lib::reverse_complement(const string &dna_in)
+string DNA::reverse_complement()
 {
     string comp = "";
-    for (auto nuc : dna_in)
+    for (auto nuc : this->dna)
     {
         assert(this->complement_map.find(nuc) != this->complement_map.end());
         comp += this->complement_map[nuc];
@@ -59,19 +59,15 @@ string dna_lib::reverse_complement(const string &dna_in)
     return comp;
 }
 
-// RNA to Protein
-void dna_lib::read_codon_table()
+// PROT - Translating RNA to Protein
+string RNA::rna_to_protein()
 {
-}
-
-string dna_lib::rna_to_protein(const std::string &rna_in)
-{
-    assert(rna_in.length() % 3 == 0);
+    assert(this->rna.length() % 3 == 0);
 
     string protein = "";
-    for (int start = 0; (start + 3) < rna_in.size(); start += 3)
+    for (int start = 0; (start + 3) < this->rna.size(); start += 3)
     {
-        string codon = rna_in.substr(start, 3);
+        string codon = this->rna.substr(start, 3);
         assert(codon_table.find(codon) != codon_table.end());
         if (codon_table[codon] != '\0')
         {
@@ -82,5 +78,6 @@ string dna_lib::rna_to_protein(const std::string &rna_in)
             break;
         }
     }
+
     return protein;
 }
