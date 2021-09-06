@@ -16,7 +16,7 @@ public:
         for (auto letter : dna)
         {
             if (letter != 'A' && letter != 'G' && letter != 'T' && letter != 'C')
-                throw std::runtime_error("not a valid dna req");
+                throw std::runtime_error("not a valid dna seq");
         }
     }
 
@@ -49,7 +49,7 @@ public:
         for (auto letter : rna)
         {
             if (letter != 'A' && letter != 'G' && letter != 'U' && letter != 'C')
-                throw std::runtime_error("not a valid dna req");
+                throw std::runtime_error("not a valid rna seq");
         }
 
         // read in codon table
